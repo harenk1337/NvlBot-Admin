@@ -28,7 +28,7 @@ const columns = [
 		fixed: 'left'
 	},
 	{
-		title: '用户QQ',
+		title: '项目名',
 		key: 'itemName'
 	},
 	{
