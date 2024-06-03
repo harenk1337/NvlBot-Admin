@@ -1,7 +1,7 @@
 <script setup>
 import PageContainer from '@/components/PageContainer.vue'
 import { NButton, NIcon, NSwitch, NTag } from 'naive-ui'
-import { DeleteOutlineTwotone, EditNoteOutlined, PlusOutlined } from '@vicons/material'
+import { DeleteOutlineTwotone, EditNoteOutlined, PlusOutlined, FileDownloadOutlined } from '@vicons/material'
 import { h, ref } from 'vue'
 import UserEdit from '@/views/user/components/UserEdit.vue'
 import {
@@ -15,6 +15,14 @@ const modalRef = ref()
 const pagination = ref({})
 
 const loading = ref(false)
+
+const tableRef = ref()
+const handleExport = () => {
+	tableRef.value?.downloadCsv({
+		fileName: 'Users'
+	})
+}
+
 const columns = [
 	{
 		title: '用户名',
@@ -176,7 +184,13 @@ const deleteSubmit = async () => {
 		@search:btnClick="handleSearch"
 	>
 		<template #extra>
-			<n-button type="primary" @click="handleAdd">
+			<n-button ghost @click="handleExport">
+				<template #icon>
+					<n-icon><FileDownloadOutlined /></n-icon>
+				</template>
+				导出
+			</n-button>
+			<n-button type="primary" @click="handleAdd" style="margin-left: 10px">
 				<template #icon>
 					<n-icon><PlusOutlined /></n-icon>
 				</template>
@@ -223,6 +237,7 @@ const deleteSubmit = async () => {
 
 		<template #data-show>
 			<n-data-table
+				ref="tableRef"
 				striped
 				remote
 				:loading="loading"

@@ -2,12 +2,20 @@
 import PageContainer from '@/components/PageContainer.vue'
 import { h, ref } from 'vue'
 import { NButton, NTag, NIcon } from 'naive-ui'
-import { DeleteOutlineTwotone, EditNoteOutlined } from '@vicons/material'
+import { DeleteOutlineTwotone, EditNoteOutlined, FileDownloadOutlined } from '@vicons/material'
 import OrderEdit from '@/views/order/components/OrderEdit.vue'
 import { orderPageQueryService, orderDeleteService } from '@/api/order.js'
 import { formatTime } from '@/utils/format.js'
 
 const loading = ref(false)
+
+const tableRef = ref()
+const handleExport = () => {
+	tableRef.value?.downloadCsv({
+		fileName: 'Orders'
+	})
+}
+
 const modalRef = ref()
 const selectOptions = [
 	{
@@ -184,6 +192,14 @@ const deleteSubmit = async () => {
 		@reset:btnClick="handleReset"
 		@search:btnClick="handleSearch"
 	>
+		<template #extra>
+			<n-button type="primary" @click="handleExport">
+				<template #icon>
+					<n-icon><FileDownloadOutlined /></n-icon>
+				</template>
+				导出
+			</n-button>
+		</template>
 		<template #search-form>
 			<n-form inline :model="searchForm">
 				<n-form-item>
@@ -219,6 +235,7 @@ const deleteSubmit = async () => {
 
 		<template #data-show>
 			<n-data-table
+				ref="tableRef"
 				:scroll-x="1200"
 				striped
 				remote

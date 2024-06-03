@@ -69,13 +69,13 @@ const githubUrl = import.meta.env.VITE_GITHUB_URL
 									ghost
 									type="primary"
 									tag="a"
-									href="https://en.neverlose.cc/market/api"
+									href="https://harenk1337.github.io/NvlBot-Docs/"
 									target="_blank"
 									>部署文档</n-button
 								>
 								<n-button
 									tag="a"
-									:href="githubUrl"
+									href="https://github.com/harenk1337/NvlBot"
 									target="_blank"
 									type="primary"
 									style="margin-left: 10px"
